@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Search | School Data</title>
+       <link rel="stylesheet" type="text/css" href="style.css">
+
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        
+
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('form').click(function(e)
+            {
+            e.preventDefault();
+            var formdata={
+            src:$("#ip").val(),
+            cat:$("#category").val(),
+            moi=$("#moi").val(),
+            gen=$("#gender").val()
+            }
+            $.ajax({
+            type: "Post",
+            contentType:'application/json',
+            post:"localhost:3000/getdata",
+            data:JSON.stringify(formdata),
+            success: function () {
+                alert("Success");
+                            }
+        });
+
+            })
+     });
+
+
+</script>
+
+    </head>
+    <body>
+
+    <nav >
+        <ul>
+            <li><a>Home </a> </li>
+            <li><a>About</a> </li>
+            <li><a>Contact</a></li>
+        </ul>
+
+    </nav>  
+            
+            <div class="hd">
+                <h3><b> Search School</b></h2>
+            </div>
+    <form id="addUserForm" action="/getdata" method="POST">
+        <div class="srch">
+            <div style="display: inline;padding-left: 15px">
+                <input id="ip" size='50' name='src' id="search" type="text"  placeholder="School"  required = "true">
+            </div>
+
+            <div style="display: inline">
+                <button id="btn" type="submit"  class="btn btn-primary">Search</button>
+                <br>
+            </div>
+        </div>
+    </form>
+        <div style="padding-left: 30px">
+            <select id="category" >
+                <option value="up">Upper primary</option>
+                <option value="saab">Lower primary</option>
+                <option value="opel">Secondary</option>
+                <option value="audi">Senior Secondary</option>
+            </select>
+            <select id="moi">
+                <option value="up">English</option>
+                <option value="saab">Kannada</option>
+                <option value="opel">Hindi</option>
+            </select>
+            <select id='gender'>
+                <option value="up">Co-ed</option>
+                <option value="saab">Boys</option>
+                <option value="opel">Girls</option>
+            </select>
+        </div>   
+            <hr/>                  
+
+<div class="container">
+    <div class="row">
+        <div class="panel panel-primary ">
+            <div class="panel-heading">
+                <h3 class="panel-title"> Table</h3>
+                
+            </div>
+            <table class="table " id='table-data'>
+                <thead>
+                    <tr class="">
+                        <th>district </th>
+                        <th>block </th>
+                        <th>cluster </th>
+                        <th>schoolid </th>
+                        <th>schoolname </th>
+                        <th>category </th>
+                        <th>gender </th>
+                        <th>m.o.instr </th>
+                        <th>address </th>
+                        <th>area </th>
+                        <th>pincode </th>
+                        <th>landmark </th>
+                        <th>lat/long </th>
+                      </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Banglore</td>
+                        <td>south-1</td>
+                        <td>vajara halli</td>
+                        <td>32868</td>
+                        <td>GKHPS ALAHALLI</td>
+                        <td>Upper Primary</td>
+                        <td>co-ed</td>
+                        <td>kannada</td>
+                        <td>avalahalli south range- 1</td>
+                        <td>bangalore</td>
+                        <td>560062</td>
+                        <td>masjid</td>
+                        <td>POINT(77.5766623020172 12.8893003120716)</td>
+                    </tr>
+                        <tr>
+                          <td><%= docs.result[0] %></td>
+                          <td><%= docs.result[1] %></td>
+                          <td><%= docs[i].schoolid %></td>
+                          <td><%= docs[i].schoolname %></td>
+                          <td><%= docs[i].category %></td>
+                          <td><%= docs[i].gender %></td>
+                          <td><%= docs[i].medium_of_inst %></td>
+                          <td><%= docs[i].address %></td>
+                          <td><%= docs[i].area %></td>
+                          <td><%= docs[i].pincode %></td>
+                          <td><%= docs[i].landmark %></td>
+                          <td><%= docs[i].busroutes %></td>
+                        </tr>
+                      <% } %>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
